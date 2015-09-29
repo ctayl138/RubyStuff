@@ -7,20 +7,20 @@ class RockPaperScissors
 
   def self.winner(player1, player2)
 
-    arr = %w[P R S]
-    raise RockPaperScissors::NoSuchStrategyError,"Strategy must be one of R,P,S" unless arr.member? player1.last
-    raise RockPaperScissors::NoSuchStrategyError,"Strategy must be one of R,P,S" unless arr.member? player2.last
+    arr = %w[P R S] #Possible Strategies
+    raise RockPaperScissors::NoSuchStrategyError,"Strategy must be one of R,P,S" unless arr.member? player1.last #raises error if player one doesn't use correct strategy
+    raise RockPaperScissors::NoSuchStrategyError,"Strategy must be one of R,P,S" unless arr.member? player2.last #raises error if player two doesn't use correct strategy
 
-    return player1 if((player1[1] == 'P')&&(player2[1] == 'R'))
-    return player1 if((player1[1] == 'R')&&(player2[1] == 'S'))
-    return player1 if((player1[1] == 'S')&&(player2[1] == 'P'))
-    return player1 if(player1[1] == player2[1])
-    return player2
+    return player1 if((player1[1] == 'P')&&(player2[1] == 'R'))#first case where player wins
+    return player1 if((player1[1] == 'R')&&(player2[1] == 'S'))#Second case where player wins
+    return player1 if((player1[1] == 'S')&&(player2[1] == 'P'))#Third case where player wins
+    return player1 if(player1[1] == player2[1])#Player one wins in draw
+    return player2 #all other cases where player two wins
 
   end
 
   def self.tournament_winner(tournament)
-    return tournament if tournament[0].is_a? String
-    return winner(tournament_winner(tournament[0]), tournament_winner(tournament[1]))
+    return tournament if tournament[0].is_a? String #tournament is single array
+    return winner(tournament_winner(tournament[0]), tournament_winner(tournament[1])) #tournament is multi-dimensional array
   end
 end
